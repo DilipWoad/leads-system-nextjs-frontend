@@ -12,7 +12,7 @@ export default function login() {
       const res = await axios.post(`${BASE_URL}/auth/login`, loginDetails, {
         withCredentials: true,
       });
-      console.log(res.data);
+      // console.log(res.data);
       redirectPath = "/leads";
     } catch (error) {
       console.log("Error while login : ", error);
@@ -30,7 +30,7 @@ export default function login() {
   const [loginDetails, setLoginDetails] = useState(loginFormObj);
 
   const handleChange = (e) => {
-    console.log(e.target);
+    // console.log(e.target);
     const { name, value } = e.target;
     //set them in the setLoginDetails based on the name
     setLoginDetails((prev) => ({
@@ -41,7 +41,7 @@ export default function login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(loginDetails);
+    // console.log(loginDetails);
     loginUser();
   };
 

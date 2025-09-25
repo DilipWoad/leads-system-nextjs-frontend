@@ -28,7 +28,7 @@ export default function Lead() {
       const res = await axios.post(`${BASE_URL}/leads`, newLead, {
         withCredentials: true,
       });
-      console.log(res.data);
+      // console.log(res.data);
       allLeads.unshift(res.data.data);
     } catch (error) {
       console.log("Error while sending new leads details : ", error);
@@ -65,7 +65,7 @@ export default function Lead() {
       const res = await axios.get(`${BASE_URL}/leads`, {
         withCredentials: true,
       });
-      console.log(res.data);
+      // console.log(res.data);
       setAllLeads(res.data.data);
     } catch (error) {
       console.log("Error on fecting leads. :", error);
@@ -89,9 +89,9 @@ export default function Lead() {
     }
   };
 
-  console.log("selected row :", selectedRow);
-  console.log(editingLeadId);
-  console.log("uhvhvjvvgkkvggvk", updateStatus);
+  // console.log("selected row :", selectedRow);
+  // console.log(editingLeadId);
+  // console.log("uhvhvjvvgkkvggvk", updateStatus);
 
   const handleStatusChange = async (e) => {
     setUpdateStatus(e.target.value);
@@ -109,7 +109,7 @@ export default function Lead() {
         { status: newStatus },
         { withCredentials: true }
       );
-      console.log(res);
+      // console.log(res);
     } catch (error) {
       console.log("Error while updating Lead Status : ", error.message);
       setAllLeads(allLeads);
@@ -120,13 +120,13 @@ export default function Lead() {
 
   const handleDeleteLead = async (leadId) => {
     const updatedLeads = allLeads.filter((lead) => lead.id !== leadId);
-    console.log(updatedLeads)
+    // console.log(updatedLeads)
     setAllLeads(updatedLeads);
     try {
       const res = await axios.delete(`${BASE_URL}/leads/${leadId}`, {
         withCredentials: true,
       });
-      console.log(res.data);
+      // console.log(res.data);
       //also make the selectedRow to null
       setSelectedRow(null);
     } catch (error) {
@@ -136,7 +136,6 @@ export default function Lead() {
   };
 
   useEffect(() => {
-    console.log("every load");
     getLeads();
   }, []);
   if (!allLeads) {
