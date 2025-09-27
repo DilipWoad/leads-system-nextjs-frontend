@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../constant";
+import LoadingScreen from "../components/LoadingScreen.jsx";
 export default function Lead() {
   const [showAddLeadOptions, setShowAddLeadOptions] = useState(false);
   const [editingLeadId, setEditingLeadId] = useState(null);
@@ -139,7 +140,7 @@ export default function Lead() {
     getLeads();
   }, []);
   if (!allLeads) {
-    return <div>Loading...</div>;
+    return <LoadingScreen/>;
   }
   return (
     <div className="w-screen h-screen  flex justify-center items-center bg-yellow-500">
@@ -273,7 +274,7 @@ export default function Lead() {
       </div>
       {showAddLeadOptions && (
         <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center">
-          <div className="bg-white w-80 flex flex-col gap-4 p-4 rounded-lg shadow-lg">
+          <div className="bg-white min-w-80 flex flex-col gap-4 p-4 rounded-lg shadow-lg">
             {/* Lead Name */}
             <div className="flex justify-between items-center">
               <label htmlFor="name">Name : </label>

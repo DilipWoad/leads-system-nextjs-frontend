@@ -3,31 +3,39 @@
 import axios from "axios";
 import { redirect } from "next/navigation";
 import { useState } from "react";
-import { BASE_URL } from "../constant";
+import { BASE_URL } from "../constant.js";
+import LoadingScreen from "../components/LoadingScreen.jsx";
 
 export default function login() {
+
+  const loginFormObj = {
+    email: "dilip7@gmail.com",
+    password: "12345678",
+  };
+  const [loginDetails, setLoginDetails] = useState(loginFormObj);
+  const [loading,setLoading] =useState(false);
   const loginUser = async () => {
     let redirectPath = null;
+    setLoading(true);
     try {
       const res = await axios.post(`${BASE_URL}/auth/login`, loginDetails, {
         withCredentials: true,
       });
       // console.log(res.data);
       redirectPath = "/leads";
+      setLoading(false)
     } catch (error) {
       console.log("Error while login : ", error);
       redirectPath = "/login";
-    } finally {
+      setLoading(false)
+        } finally {
+      
       if (redirectPath) {
         redirect(redirectPath);
       }
     }
   };
-  const loginFormObj = {
-    email: "dilip7@gmail.com",
-    password: "12345678",
-  };
-  const [loginDetails, setLoginDetails] = useState(loginFormObj);
+  
 
   const handleChange = (e) => {
     // console.log(e.target);
@@ -46,40 +54,11 @@ export default function login() {
   };
 
   return (
-    // <form onSubmit={handleSubmit} className="">
-    //   <div>
-    //     <label name="email">Email</label>
-    //     <input
-    //       type="text"
-    //       name="email"
-    //       id="email"
-    //       defaultValue={loginDetails.email}
-    //       //   value={email}
-    //       placeholder="Enter Email..."
-    //       required={true}
-    //       onChange={handleChnage}
-    //     />
-    //   </div>
-    //   <div>
-    //     <label name="password">Password</label>
-    //     <input
-    //       type="password"
-    //       name="password"
-    //       id="password"
-    //       defaultValue={loginDetails.password}
-    //       onChange={handleChnage}
-    //       placeholder="Enter Password..."
-    //       required={true}
-    //     />
-    //   </div>
-    //   <button type="submit">Login</button>
-    // </form>
-
-
+    
     <div className="flex justify-center h-screen items-center bg-yellow-500">
     <form
       onSubmit={handleSubmit}
-      className="bg-white w-80 flex  flex-col gap-10 p-4 rounded-lg shadow-lg"
+      className="bg-white min-w-80 flex  flex-col gap-10 p-4 rounded-lg shadow-lg"
     >
       {/* Email */}
       <div className="flex justify-between items-center">
@@ -119,6 +98,9 @@ export default function login() {
         Login
       </button>
     </form>
+    {
+      loading && <LoadingScreen/>
+    }
     </div>
   );
 }
